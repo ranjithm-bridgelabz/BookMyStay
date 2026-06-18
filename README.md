@@ -6,7 +6,7 @@ A hotel booking app that lets guests search and reserve rooms/services on a firs
 
 ### 1. Room Inventory Setup & Management
 **Description:** Initializes room types (Single, Double, Suite), stores counts and prices, and provides real-time availability updates.
-**Data Structures:** `HashMap<String, Integer>`, `HashMap<String, Double>`
+**Data Structures:*** `HashMap<String, Integer>`, `HashMap<String, Double>`
 
 ### 2. Room Search & Availability Check
 **Description:** Read-only access to view available room types, pricing, and prevent booking of unavailable rooms. 
