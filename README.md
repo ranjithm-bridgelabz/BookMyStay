@@ -30,25 +30,28 @@ A hotel booking app that lets guests search and reserve rooms/services on a firs
 
 ---
 
-## Current Implementation: Use Case 3 (Booking Request Queue)
+## Current Implementation: Use Case 4 (Reservation Confirmation & Room Allocation)
 
 **Purpose:**
-Implements a First-Come-First-Served logic using a `Queue<Reservation>` (`LinkedList`). This ensures fairness during high traffic, enqueuing booking requests in their exact arrival order and processing them sequentially to avoid race conditions.
+Uses a `Set<String>` (`HashSet`) to track and assign uniquely generated room IDs to prevent double booking. It also manages a `HashMap<String, Set<String>>` to link room types to assigned rooms, instantly deducting from the `InventoryManager` upon successful allocation.
 
 **Input:**
-- Add Request: `Reservation("Alice", "Single")`
-- Add Request: `Reservation("Bob", "Double")`
-- Add Request: `Reservation("Charlie", "Suite")`
+- Incoming Request: `Reservation("Alice", "Single")`
+- Incoming Request: `Reservation("Bob", "Double")`
+- Incoming Request: `Reservation("Charlie", "Suite")`
 
 **Output:**
 ```
---- [UC3: Booking Request Queue (FIFO)] ---
-Enqueued booking request: ReservationRequest{guest='Alice', roomType='Single'}
-Enqueued booking request: ReservationRequest{guest='Bob', roomType='Double'}
-Enqueued booking request: ReservationRequest{guest='Charlie', roomType='Suite'}
+--- [UC4: Room Allocation & Confirmation] ---
+Processing next request: ReservationRequest{guest='Alice', roomType='Single', status='PENDING'}
+ -> Successfully allocated Room S-429 to Alice
+Processing next request: ReservationRequest{guest='Bob', roomType='Double', status='PENDING'}
+ -> Successfully allocated Room D-184 to Bob
+Processing next request: ReservationRequest{guest='Charlie', roomType='Suite', status='PENDING'}
+ -> Successfully allocated Room S-812 to Charlie
 
---- Processing Queue ---
-Processing next request: ReservationRequest{guest='Alice', roomType='Single'}
-Processing next request: ReservationRequest{guest='Bob', roomType='Double'}
-Processing next request: ReservationRequest{guest='Charlie', roomType='Suite'}
+--- Final Inventory Status ---
+Single Rooms: 9
+Double Rooms: 4
+Suite Rooms: 1
 ```

@@ -19,9 +19,19 @@ public class HotelApp {
         bookingQueue.addBookingRequest(new Reservation("Bob", "Double"));
         bookingQueue.addBookingRequest(new Reservation("Charlie", "Suite"));
         
-        System.out.println("\n--- Processing Queue ---");
+        System.out.println("\n--- [UC4: Room Allocation & Confirmation] ---");
+        RoomAllocationService allocationService = new RoomAllocationService(inventory);
+        
         while (bookingQueue.hasPendingRequests()) {
-            bookingQueue.processNextRequest();
+            Reservation request = bookingQueue.processNextRequest();
+            if (request != null) {
+                allocationService.allocateRoom(request);
+            }
         }
+        
+        System.out.println("\n--- Final Inventory Status ---");
+        System.out.println("Single Rooms: " + inventory.getAvailableCount("Single"));
+        System.out.println("Double Rooms: " + inventory.getAvailableCount("Double"));
+        System.out.println("Suite Rooms: " + inventory.getAvailableCount("Suite"));
     }
 }
