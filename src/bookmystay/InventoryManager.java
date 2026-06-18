@@ -8,23 +8,27 @@ public class InventoryManager {
     private Map<String, Integer> roomCounts;
     // Stores the price per night for each room type
     private Map<String, Double> roomPrices;
+    // Stores the amenities for each room type
+    private Map<String, String> roomAmenities;
 
     public InventoryManager() {
         this.roomCounts = new HashMap<>();
         this.roomPrices = new HashMap<>();
+        this.roomAmenities = new HashMap<>();
         initializeDefaultInventory();
     }
 
     private void initializeDefaultInventory() {
-        // Initializing room types with counts and prices
-        addRoomType("Single", 10, 100.0);
-        addRoomType("Double", 5, 150.0);
-        addRoomType("Suite", 2, 300.0);
+        // Initializing room types with counts, prices, and amenities
+        addRoomType("Single", 10, 100.0, "1 Bed, AC, Free Wi-Fi");
+        addRoomType("Double", 5, 150.0, "2 Beds, AC, TV, Free Wi-Fi");
+        addRoomType("Suite", 2, 300.0, "King Bed, AC, TV, Minibar, City View");
     }
 
-    public void addRoomType(String type, int count, double price) {
+    public void addRoomType(String type, int count, double price, String amenities) {
         roomCounts.put(type, count);
         roomPrices.put(type, price);
+        roomAmenities.put(type, amenities);
     }
 
     public void updateInventory(String type, int countDelta) {
@@ -44,5 +48,9 @@ public class InventoryManager {
 
     public double getPrice(String type) {
         return roomPrices.getOrDefault(type, 0.0);
+    }
+    
+    public String getAmenities(String type) {
+        return roomAmenities.getOrDefault(type, "Standard Amenities");
     }
 }

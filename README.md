@@ -30,20 +30,22 @@ A hotel booking app that lets guests search and reserve rooms/services on a firs
 
 ---
 
-## Current Implementation: Use Case 1 (Room Inventory Setup & Management)
+## Current Implementation: Use Case 2 (Room Search & Availability Check)
 
 **Purpose:**
-Initializes the foundational hotel inventory system using `HashMap`s for fast O(1) lookups. It tracks room types, counts, and prices, and allows for dynamic inventory updates.
+Provides a read-only `SearchService` for guests to search for available rooms, view pricing, and check amenities without modifying the core inventory data. It ensures guests cannot proceed with booking an unavailable room.
 
 **Input:**
-- Add Room Type: `("Single", 10 rooms, $100.0/night)`
-- Add Room Type: `("Double", 5 rooms, $150.0/night)`
-- Add Room Type: `("Suite", 2 rooms, $300.0/night)`
+- Search Request: `roomType = "Double"`
+- Search Request: `roomType = "Presidential"`
 
 **Output:**
 ```
---- [UC1: Initializing Inventory] ---
-Single Rooms: 10 | Price: $100.0
-Double Rooms: 5 | Price: $150.0
-Suite Rooms: 2 | Price: $300.0
+--- [UC2: Room Search & Availability Check] ---
+Searching for room type: Double
+ -> Success: 5 Double room(s) available.
+    Price    : $150.0 per night
+    Amenities: 2 Beds, AC, TV, Free Wi-Fi
+Searching for room type: Presidential
+ -> Sorry, no Presidential rooms are currently available.
 ```
