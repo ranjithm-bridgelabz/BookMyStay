@@ -19,13 +19,17 @@ public class HotelApp {
         bookingQueue.addBookingRequest(new Reservation("Bob", "Double"));
         bookingQueue.addBookingRequest(new Reservation("Charlie", "Suite"));
         
-        System.out.println("\n--- [UC4: Room Allocation & Confirmation] ---");
+        System.out.println("\n--- [UC4 & UC6: Allocation & Booking History] ---");
         RoomAllocationService allocationService = new RoomAllocationService(inventory);
+        BookingHistoryService historyService = new BookingHistoryService(inventory);
         
         while (bookingQueue.hasPendingRequests()) {
             Reservation request = bookingQueue.processNextRequest();
             if (request != null) {
                 allocationService.allocateRoom(request);
+                if (request.isConfirmed()) {
+                    historyService.addConfirmedReservation(request);
+                }
             }
         }
         
@@ -42,6 +46,14 @@ public class HotelApp {
         serviceManager.addService("D-184", new Service("Breakfast", 20.0));
         serviceManager.addService("D-184", new Service("Spa", 50.0));
         System.out.println("Bob's total add-on cost: $" + serviceManager.calculateAddOnTotal("D-184"));
+        
+        System.out.println("\n--- [UC6: Reporting & Cancellation] ---");
+        historyService.printBookingReport();
+        
+        System.out.println("\nCancelling Bob's Reservation (D-184)...");
+        historyService.cancelReservation("D-184");
+        
+        historyService.printBookingReport();
         
         System.out.println("\n--- Final Inventory Status ---");
         System.out.println("Single Rooms: " + inventory.getAvailableCount("Single"));
