@@ -8,3 +8,4 @@ A hotel booking app that lets guests search and reserve rooms/services on a firs
 3. Booking Request (First-Come-First-Served)
 4. Reservation Confirmation & Room Allocation
 5. Add-On Service Selection
+6. [Use Case 6 - Title Pending]
