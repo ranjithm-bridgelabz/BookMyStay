@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InventoryManager {
-    // Stores the available count for each room type
+    // Stores the available count for each room types
     private Map<String, Integer> roomCounts;
     // Stores the price per night for each room type
     private Map<String, Double> roomPrices;
