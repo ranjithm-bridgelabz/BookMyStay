@@ -29,6 +29,20 @@ public class HotelApp {
             }
         }
         
+        System.out.println("\n--- [UC5: Add-On Service Selection] ---");
+        AddOnServiceManager serviceManager = new AddOnServiceManager();
+        
+        // Let's add some services to Alice's room (if it was confirmed, we'd need her room ID)
+        // For demonstration, we'll extract Alice's ID if available.
+        String aliceRoomId = "S-???";
+        // We know Alice requested Single, so let's just use the first generated ID for Single
+        // In reality, we'd store the reservation objects in a List or Map. 
+        // For now, let's just use dummy IDs for demonstration of UC5.
+        System.out.println("Adding services to Bob's reservation...");
+        serviceManager.addService("D-184", new Service("Breakfast", 20.0));
+        serviceManager.addService("D-184", new Service("Spa", 50.0));
+        System.out.println("Bob's total add-on cost: $" + serviceManager.calculateAddOnTotal("D-184"));
+        
         System.out.println("\n--- Final Inventory Status ---");
         System.out.println("Single Rooms: " + inventory.getAvailableCount("Single"));
         System.out.println("Double Rooms: " + inventory.getAvailableCount("Double"));
