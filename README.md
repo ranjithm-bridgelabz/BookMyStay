@@ -24,5 +24,26 @@ A hotel booking app that lets guests search and reserve rooms/services on a firs
 **Description:** Attaches optional services (breakfast, spa, pickup) to bookings and calculates additional costs.
 **Data Structures:** `Map<String, List<Service>>`
 
-### 6. Checkout & System Integration
-**Description:** Computes final receipt including room and add-on costs, handles the checkout process, and integrates all previous components into a main execution flow.
+### 6. Booking History & Reporting
+**Description:** Stores confirmed reservations, supports cancellation, and generates audit reports.
+**Data Structures:** `List<Reservation>` (`ArrayList`)
+
+---
+
+## Current Implementation: Use Case 1 (Room Inventory Setup & Management)
+
+**Purpose:**
+Initializes the foundational hotel inventory system using `HashMap`s for fast O(1) lookups. It tracks room types, counts, and prices, and allows for dynamic inventory updates.
+
+**Input:**
+- Add Room Type: `("Single", 10 rooms, $100.0/night)`
+- Add Room Type: `("Double", 5 rooms, $150.0/night)`
+- Add Room Type: `("Suite", 2 rooms, $300.0/night)`
+
+**Output:**
+```
+--- [UC1: Initializing Inventory] ---
+Single Rooms: 10 | Price: $100.0
+Double Rooms: 5 | Price: $150.0
+Suite Rooms: 2 | Price: $300.0
+```
