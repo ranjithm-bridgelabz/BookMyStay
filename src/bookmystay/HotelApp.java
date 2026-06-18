@@ -13,6 +13,15 @@ public class HotelApp {
         System.out.println("\n--- [UC2: Room Search & Availability Check] ---");
         SearchService searchService = new SearchService(inventory);
         searchService.searchRoom("Double");
-        searchService.searchRoom("Presidential"); // Does not exist
+        System.out.println("\n--- [UC3: Booking Request Queue (FIFO)] ---");
+        BookingQueue bookingQueue = new BookingQueue();
+        bookingQueue.addBookingRequest(new Reservation("Alice", "Single"));
+        bookingQueue.addBookingRequest(new Reservation("Bob", "Double"));
+        bookingQueue.addBookingRequest(new Reservation("Charlie", "Suite"));
+        
+        System.out.println("\n--- Processing Queue ---");
+        while (bookingQueue.hasPendingRequests()) {
+            bookingQueue.processNextRequest();
+        }
     }
 }

@@ -30,22 +30,25 @@ A hotel booking app that lets guests search and reserve rooms/services on a firs
 
 ---
 
-## Current Implementation: Use Case 2 (Room Search & Availability Check)
+## Current Implementation: Use Case 3 (Booking Request Queue)
 
 **Purpose:**
-Provides a read-only `SearchService` for guests to search for available rooms, view pricing, and check amenities without modifying the core inventory data. It ensures guests cannot proceed with booking an unavailable room.
+Implements a First-Come-First-Served logic using a `Queue<Reservation>` (`LinkedList`). This ensures fairness during high traffic, enqueuing booking requests in their exact arrival order and processing them sequentially to avoid race conditions.
 
 **Input:**
-- Search Request: `roomType = "Double"`
-- Search Request: `roomType = "Presidential"`
+- Add Request: `Reservation("Alice", "Single")`
+- Add Request: `Reservation("Bob", "Double")`
+- Add Request: `Reservation("Charlie", "Suite")`
 
 **Output:**
 ```
---- [UC2: Room Search & Availability Check] ---
-Searching for room type: Double
- -> Success: 5 Double room(s) available.
-    Price    : $150.0 per night
-    Amenities: 2 Beds, AC, TV, Free Wi-Fi
-Searching for room type: Presidential
- -> Sorry, no Presidential rooms are currently available.
+--- [UC3: Booking Request Queue (FIFO)] ---
+Enqueued booking request: ReservationRequest{guest='Alice', roomType='Single'}
+Enqueued booking request: ReservationRequest{guest='Bob', roomType='Double'}
+Enqueued booking request: ReservationRequest{guest='Charlie', roomType='Suite'}
+
+--- Processing Queue ---
+Processing next request: ReservationRequest{guest='Alice', roomType='Single'}
+Processing next request: ReservationRequest{guest='Bob', roomType='Double'}
+Processing next request: ReservationRequest{guest='Charlie', roomType='Suite'}
 ```
